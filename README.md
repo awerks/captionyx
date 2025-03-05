@@ -55,6 +55,12 @@ The Subtitles Generator bot operates through a series of steps to download, tran
 
 This comprehensive setup allows users to efficiently download, transcribe, and process video subtitles through a user-friendly Telegram bot interface.
 
+## Pictures
+
+![image](screenshots/1.png)
+![image](screenshots/2.png)
+![image](screenshots/3.png)
+
 ## Installation
 
 1. Clone the repository:
