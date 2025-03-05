@@ -2,7 +2,7 @@ import os
 import psycopg2
 import logging
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class Persistent:
@@ -35,7 +35,7 @@ class Persistent:
             cls._instance.default_available_minutes = 60
             cls._instance.load_translations("translations/translations.json")
             cls._instance.connect_to_database()
-            # cls._instance.create_tables_if_not_exist()
+            cls._instance.create_tables_if_not_exist()
 
             print("Creating a new class.")
         else:
@@ -173,7 +173,7 @@ class Persistent:
 
     def save_user_settings(self, context, user_id, username, name, bot_language):
         try:
-            start_time_utc = datetime.utcnow()  # get the current date and time
+            start_time_utc = datetime.now(timezone.utc)  # get the current date and time
             self.cur.execute(
                 f"""
 				INSERT INTO users (user_id, username, name, start_time_utc, bot_language, user_font_size, user_font, user_border_style, default_language, default_resolution, transcribe, subtitle_choice, available_minutes)
@@ -280,7 +280,7 @@ class Persistent:
 
         self.cur.execute("SELECT user_id FROM users")
 
-        return [int(row[0]) for row in cur.fetchall()]
+        return [int(row[0]) for row in self.cur.fetchall()]
 
     def close_connection(self):
         if self.cur:

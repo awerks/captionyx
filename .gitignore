@@ -12,5 +12,5 @@ env.txt
 *.sh
 my_env/
 website/
-telegram-bot-api/
 fonts/
+telegram-bot-api/
