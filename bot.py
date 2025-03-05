@@ -1,12 +1,6 @@
-from utils import install_yt_dlp
-
-# install_yt_dlp()
-# import time
-# time.sleep(10)
-import boto3
-import json
-import math
 import shutil
+import boto3
+import math
 import gc
 import re
 import replicate
@@ -51,9 +45,7 @@ from telegram.ext import (
 )
 from utils import (
     generate_random_string,
-    isNowInTimePeriod,
     language_to_flag,
-    install_master_yt_dlp,
     progress_function,
     make_url_friendly_datetime,
 )
@@ -86,8 +78,6 @@ from handlers import (
 from download import download_video
 import yt_dlp
 from pathlib import Path
-
-# install_master_yt_dlp()
 
 
 persistent = Persistent()
@@ -181,10 +171,8 @@ async def handle_original_language(update: Update, context: ContextTypes.DEFAULT
     context.user_data["original_language"] = original_language
     persistent.logger.info(f"{context.user_data['name']} selected {original_language} as original language.")
     if context.user_data["default_language"] != "default":
-        # persistent.logger.info("here")
         return await handle_language(context.user_data["default_language"], context)
     else:
-        # persistent.logger.info("here2")
         await select_language(update, context)
         return TRANSLATION_LANGUAGE
 
@@ -531,7 +519,6 @@ async def handle_video_operations(context):
                 return
 
             try:
-                # Call save_video with the values
                 persistent.logger.info("Saving the video...")
 
                 persistent.save_video(
@@ -613,8 +600,8 @@ async def handle_video_operations(context):
     finally:
         context.user_data["running_task"] = False
 
-        # if os.path.exists(user_id):
-        #     shutil.rmtree(user_id)
+        if os.path.exists(user_id):
+            shutil.rmtree(user_id)
 
         gc.collect()
 
@@ -739,16 +726,10 @@ async def get_subtitles_or_transcription(audio_path: str, context, to_transcribe
         context.user_data["link"] = os.path.join(CLOUDFRONT_PATH, s3_video_path)
 
     s3 = AsynchronousS3(BUCKETNAME, session)
-    print("BUCKETNAME", BUCKETNAME)
-    print("Video path: ", context.user_data["video_path"])
-    print("s3_video_path: ", s3_video_path)
-    print("on_success: ", on_success)
-    print("on_failure: ", on_failure)
 
     s3.upload_file(context.user_data["video_path"], s3_video_path, on_success, on_failure, context)
 
     if isDisplay:
-        # persistent.logger.info("Generating a page...")
 
         context.user_data["s3_subtitles_path"] = s3_vtt_path = os.path.join(s3_base_path, "subtitles.vtt")
 
@@ -798,7 +779,6 @@ async def get_subtitles_or_transcription(audio_path: str, context, to_transcribe
 
     output = prediction.output
 
-    # detected_language = output["language"].upper()
     detected_language = output["detected_language"].upper()
     if detected_language == "EN":
         detected_language = "EN-US"
@@ -1038,14 +1018,9 @@ async def handle_video_or_document(update: Update, context: CallbackContext) -> 
 
         # if update.message.video:
         file_id = update.message.video.file_id
-        print(file_id)
         try:
             file = await context.bot.get_file(file_id, read_timeout=300)
-            print(file)
-            await file.download_to_drive()
-            print(file.file_path)
-            # with open(video_path, "wb") as f:
-            #     f.write(file_bytes)
+            await file.download_to_drive(video_path)
             del file
 
         except Exception as e:
@@ -1065,7 +1040,6 @@ async def handle_video_or_document(update: Update, context: CallbackContext) -> 
         )  # seconds
         if context.user_data["user_font_size"] == "default":
             context.user_data["font_size"] = get_font_size(video_path)
-        print("video_path", video_path)
         await select_language(update, context, original_language=True)
         return ORIGINAL_LANGUAGE
 
