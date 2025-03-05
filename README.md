@@ -80,7 +80,6 @@ This comprehensive setup allows users to efficiently download, transcribe, and p
 
 Set environment variables for `api_id` and `api_hash`:
 
-````bash
 Set the following environment variables before running the bot:
 
 ```bash
@@ -108,7 +107,7 @@ export TOKEN=<TOKEN>  # Bot token
 export TRANSCRIPTION_LIMIT_MIN=120  # Transcription limit in minutes
 export MODEL_NAME=victor-upmeet/whisperx  # Model name for transcription
 export MODEL_VERSION=84d2ad2d6194fe98a17d2b60bef1c7f910c46b2f6fd38996ca457afd9c8abfcb  # Model version for transcription
-````
+```
 
 Before running the bot, ensure you have the `telegram-bot-api` server running. If you don't have it installed,
 you can compile the telegram-bot-api from source with instructions from [telegram-bot-api](https://tdlib.github.io/telegram-bot-api/build.html)
