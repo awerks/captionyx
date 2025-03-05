@@ -1,0 +1,18 @@
+This is a receipt for your recent purchase on {{ purchase_date }}. No payment is due with this receipt.
+
+Hi {{name}},
+
+Thanks for using Subtitles Generator. This email is the receipt for your purchase. No payment is due.
+This purchase will appear as “SubtitlesGeneratorBot” on your credit card statement.
+
+Description                          Amount (in min)
+------------------------------------------------------
+Subtitles minutes                     {{amount}}
+
+Total:                                {{total}}
+
+If you have any questions about this receipt, simply reply to this email or reach out to our support team for help at support@captionyx.com.
+
+Cheers,
+
+The Captionyx team

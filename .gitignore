@@ -1,0 +1,16 @@
+*.mp3
+*.mp4
+*.wav
+.vscode/
+.history/
+.idea/
+__pycache__/
+translations/credentials.json
+*venv/
+.idea/
+env.txt
+*.sh
+my_env/
+website/
+telegram-bot-api/
+fonts/
