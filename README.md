@@ -1,3 +1,5 @@
+## [Website](https://github.com/awerks/website)
+
 ## How the Bot Works
 
 The Subtitles Generator bot operates through a series of steps to download, transcribe, and process video subtitles. Here is an overview of how the bot works:
